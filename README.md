@@ -4,9 +4,23 @@
 
 #### Run
 
-```terminal
+#### Linux and Mac
 
+```terminal
+export FLASK_APP=coursharer.py
+export FLASK_ENV=development
+flask run
 ```
+
+#### Windows cmd
+
+```Linux
+set FLASK_APP=coursharer.py
+set FLASK_ENV=development
+flask run
+```
+
+
 
 ### Installation
 
@@ -22,9 +36,40 @@ pip3 install  flask_login
 
 Install SQLite
 
-If you are using VSCode, complete the following to avoid Flask-SQLAlchemy Pylint errors:
+If you are using VSC “ode, complete the following to avoid Flask-SQLAlchemy Pylint errors:
 
 1. Run `pip install pylint-flask` in terminal
 2. Press `Ctrl + Shift + P`. Then enter “Preferences: Open Settings (JSON)”
 3. Add "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
 
+
+
+Should add in requirements when implemented
+
+Flask-Mail==0.9.1
+
+Flask-Bcrypt==0.7.1
+
+bcrypt==3.1.4
+
+blinker==1.4
+
+certifi==2016.2.28
+
+cffi==1.11.5
+
+click==6.7
+
+itsdangerous==0.24
+
+Jinja2==2.10
+
+MarkupSafe==1.0
+
+Pillow==5.3.0
+
+pycparser==2.18
+
+six==1.11.0
+
+Werkzeug==0.14.1
