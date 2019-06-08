@@ -1,4 +1,5 @@
 {% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
 Dashboard
@@ -62,7 +63,7 @@ Dashboard
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+              <img src="{{ image_file }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>Label</h4>
               <span class="text-muted">Something else</span>
             </div>
@@ -211,6 +212,13 @@ Dashboard
               </tbody>
             </table>
           </div>
+            <form class="form-signin" method="POST" action="/signup">
+              <h2 class="form-signin-heading">Account Info</h2>
+              {{ form.hidden_tag() }}
+              {{ wtf.form_field(form.username) }}
+              {{ wtf.form_field(form.email) }}
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            </form>
         </div>
       </div>
     </div>
