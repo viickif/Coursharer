@@ -51,7 +51,8 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    courses = Course.query.all()
+    page = request.args.get('page', 1, type=int)
+    courses = Course.query.order_by(Course.date_posted.desc()).paginate(page=page, per_page=5)
     image_file = url_for('static', filename='profile_pictures/' + current_user.image_file)
     return render_template('dashboard.html', name=current_user.username, image_file=image_file, courses=courses)
 
@@ -132,5 +133,12 @@ def delete_course(course_id):
     db.session.commit()
     return redirect(url_for('dashboard'))
 
-
+@app.route("/user/<string:username>")
+def user_courses(username):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    courses = Course.query.filter_by(author=user)\
+        .order_by(Course.date_posted.desc())\
+        .paginate(page=page, per_page=5)
+    return render_template('user_courses.html', courses=courses, user=user)
 

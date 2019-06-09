@@ -61,18 +61,8 @@ Dashboard
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Welcome, {{ name }}</h1>
-
+          <h1 class="page-header">{{ user.username }}'s courses</h1>
           <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="{{ image_file }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
-
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive">
             {% for course in courses.items %}
               <article class="media content-section">
                 <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pictures/' + course.author.image_file) }}">
@@ -87,15 +77,15 @@ Dashboard
               </article>
             {% endfor %}
             {% for page_num in courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-              {% if page_num %}
-                {% if courses.page == page_num %}
-                  <a class="btn btn-info mb-4" href="{{ url_for('dashboard', page=page_num) }}">{{ page_num }}</a>
+                {% if page_num %}
+                    {% if courses.page == page_num %}
+                    <a class="btn btn-info mb-4" href="{{ url_for('user_courses', username=user.username, page=page_num) }}">{{ page_num }}</a>
+                    {% else %}
+                    <a class="btn btn-outline-info mb-4" href="{{ url_for('user_courses', username=user.username, page=page_num) }}">{{ page_num }}</a>
+                    {% endif %}
                 {% else %}
-                  <a class="btn btn-outline-info mb-4" href="{{ url_for('dashboard', page=page_num) }}">{{ page_num }}</a>
+                    ...
                 {% endif %}
-              {% else %}
-                ...
-              {% endif %}
             {% endfor %}
           </div>
         </div>
