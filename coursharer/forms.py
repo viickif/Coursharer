@@ -9,6 +9,7 @@ class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('password', validators=[InputRequired(), Length(min=5, max=80)])
     remember = BooleanField('remember me')
+    submit = SubmitField('Login')
 
 class RegisterForm(FlaskForm):
     email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
@@ -51,3 +52,25 @@ class CourseForm(FlaskForm):
     title = StringField('Course Title', validators=[InputRequired()])
     content = TextAreaField('Description', validators=[InputRequired()])
     submit = SubmitField('Create')
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[InputRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+
+        print(email)
+        print(user.email)
+        
+        if user is None:
+            raise ValidationError('There is no account with that email. Please register first.')
+        
+        #return user
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[InputRequired()])
+    confirm_password = PasswordField('Confirm Password',
+                                     validators=[InputRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')

@@ -9,6 +9,8 @@
 ```terminal
 export FLASK_APP=coursharer.py
 export FLASK_ENV=development
+export EMAIL_USER={company email}
+export EMIAL_PASS={company email password}
 flask run
 ```
 
@@ -20,7 +22,9 @@ set FLASK_ENV=development
 flask run
 ```
 
+EMAIL_USER
 
+EMAIL_PASS
 
 ### Installation
 

@@ -5,10 +5,12 @@ from flask import render_template, redirect, url_for, request, abort
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
+from flask_mail import Message
 
-from coursharer import app, bootstrap, db, login_manager
+from coursharer import app, bootstrap, db, login_manager, mail
 from coursharer.models import User, Course
-from coursharer.forms import LoginForm, RegisterForm, UpdateAccountForm, CourseForm
+from coursharer.forms import (LoginForm, RegisterForm, UpdateAccountForm,
+                              CourseForm, RequestResetForm, ResetPasswordForm)
 
 @app.route('/')
 def index():
@@ -23,8 +25,8 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
-
-        return '<h1>Invalid username or password</h1>' #flash error
+        else:
+            print('Login unsuccessful...')
 
     return render_template('login.html', form=form)
 
@@ -37,8 +39,8 @@ def signup():
         new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
-        
-        return render_template('login.html', form=form)
+        print('Your account has been created!')
+        return render_template('index.html')
 
     return render_template('signup.html', form=form)
 
@@ -81,6 +83,7 @@ def account_details():
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
+        print('Your account account has been updated!')
         return redirect(url_for('account_details'))
     elif request.method == 'GET':
         form.username.data = current_user.username
@@ -96,6 +99,7 @@ def create_course():
         post = Course(title=form.title.data, description=form.content.data, author=current_user)
         db.session.add(post)
         db.session.commit()
+        print('Your course has been created!')
         return redirect(url_for('dashboard'))
     return render_template('create_course.html', form=form, title='Create New Course')
 
@@ -116,6 +120,7 @@ def update_course(course_id):
         course.title = form.title.data
         course.description = form.content.data
         db.session.commit()
+        print('Your course has been updated')
         return redirect(url_for('course', course_id=course_id))
     elif request.method == 'GET':
         form.title.data = course.title
@@ -131,6 +136,7 @@ def delete_course(course_id):
         abort(403)
     db.session.delete(course)
     db.session.commit()
+    print('Your course has been deleted!')
     return redirect(url_for('dashboard'))
 
 @app.route("/user/<string:username>")
@@ -142,3 +148,46 @@ def user_courses(username):
         .paginate(page=page, per_page=5)
     return render_template('user_courses.html', courses=courses, user=user)
 
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request',
+                  sender='coursharer@gmail.com',
+                  recipients=[user.email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('reset_token', token=token, _external=True)}
+If you did not make this request then simply ignore this email and no changes will be made.
+'''
+    mail.send(msg)
+
+
+@app.route("/reset_password", methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        print('login form is valid.')
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        print('An email has been sent with instructions to reset your password.')
+        return redirect(url_for('login'))
+    print('login form is invalid.')
+    return render_template('reset_request.html', form=form)
+
+
+@app.route("/reset_password/<token>", methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard'))
+    user = User.verify_reset_token(token)
+    if user is None:
+        print('That is an invalid or expired token.')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, method='sha256')
+        user.password = hashed_password
+        db.session.commit()
+        print('Your password has been updated! You are now able to log in.')
+        return redirect(url_for('login'))
+    return render_template('reset_token.html', form=form)
