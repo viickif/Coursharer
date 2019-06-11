@@ -10,7 +10,9 @@
 export FLASK_APP=coursharer.py
 export FLASK_ENV=development
 export EMAIL_USER={company email}
-export EMIAL_PASS={company email password}
+export EMAIL_PASS={company email password}
+export SECRET_KEY='daa225d7b4d306991af1f66cc3656352'
+export SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
 flask run
 ```
 
@@ -51,10 +53,6 @@ If you are using VSC “ode, complete the following to avoid Flask-SQLAlchemy Py
 Should add in requirements when implemented
 
 Flask-Mail==0.9.1
-
-Flask-Bcrypt==0.7.1
-
-bcrypt==3.1.4
 
 blinker==1.4
 

@@ -7,8 +7,8 @@ Dashboard
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
-<link rel="stylesheet" href="{{url_for('.static', filename='main.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -26,9 +26,9 @@ Dashboard
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">            
             <li><a href="#">Settings</a></li>
-            <li><a href="{{ url_for('create_course') }}">Create Course</a></li>
-            <li><a href="{{ url_for('account_details') }}">Edit Account</a></li>
-            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            <li><a href="{{ url_for('courses.courses.create_course') }}">Create Course</a></li>
+            <li><a href="{{ url_for('users.account_details') }}">Edit Account</a></li>
+            <li><a href="{{ url_for('users.logout') }}">Log Out</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -67,10 +67,10 @@ Dashboard
                 <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pictures/' + course.author.image_file) }}">
                 <div class="media-body">
                   <div class="article-metadata">
-                    <a class="mr-2" href="{{ url_for('user_courses', username=course.author.username) }}">{{ course.author.username }}</a>
+                    <a class="mr-2" href="{{ url_for('users.user_courses', username=course.author.username) }}">{{ course.author.username }}</a>
                     <small class="text-muted">{{ course.date_posted.strftime('%Y-%m-%d') }}</small>
                   </div>
-                  <h2><a class="article-title" href="{{ url_for('course', course_id=course.id) }}">{{ course.title }}</a></h2>
+                  <h2><a class="article-title" href="{{ url_for('courses.course', course_id=course.id) }}">{{ course.title }}</a></h2>
                   <p class="article-content">{{ course.description }}</p>
                 </div>
               </article>
@@ -78,9 +78,9 @@ Dashboard
             {% for page_num in courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                 {% if page_num %}
                     {% if courses.page == page_num %}
-                    <a class="btn btn-info mb-4" href="{{ url_for('user_courses', username=user.username, page=page_num) }}">{{ page_num }}</a>
+                    <a class="btn btn-info mb-4" href="{{ url_for('users.user_courses', username=user.username, page=page_num) }}">{{ page_num }}</a>
                     {% else %}
-                    <a class="btn btn-outline-info mb-4" href="{{ url_for('user_courses', username=user.username, page=page_num) }}">{{ page_num }}</a>
+                    <a class="btn btn-outline-info mb-4" href="{{ url_for('users.user_courses', username=user.username, page=page_num) }}">{{ page_num }}</a>
                     {% endif %}
                 {% else %}
                     ...
