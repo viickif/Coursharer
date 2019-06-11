@@ -7,8 +7,8 @@ from flask_mail import Mail
 from coursharer.config import Config
 
 
-bootstrap = Bootstrap()
 db = SQLAlchemy()
+bootstrap = Bootstrap()
 mail = Mail()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
@@ -21,14 +21,17 @@ def create_app(config_class=Config):
 
     db.init_app(app)
     bootstrap = Bootstrap(app)
-    login_manager.init_app(app)
     mail.init_app(app)
-
+    login_manager.init_app(app)
+    
     from coursharer.users.routes import users
     from coursharer.courses.routes import courses
     from coursharer.main.routes import main
+    from coursharer.errors.handlers import errors
+
     app.register_blueprint(users)
     app.register_blueprint(courses)
     app.register_blueprint(main)
+    app.register_blueprint(errors)
 
     return app

@@ -7,10 +7,9 @@
 #### Linux and Mac
 
 ```terminal
-export FLASK_APP=coursharer.py
-export FLASK_ENV=development
 export EMAIL_USER={company email}
 export EMAIL_PASS={company email password}
+export FLASK_APP=run.py
 export SECRET_KEY='daa225d7b4d306991af1f66cc3656352'
 export SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
 flask run

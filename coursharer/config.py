@@ -9,8 +9,3 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('EMAIL_USER')
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
-
-    print(SECRET_KEY)
-    print(SQLALCHEMY_DATABASE_URI)
-    print(MAIL_USERNAME)
-    print(MAIL_PASSWORD)
