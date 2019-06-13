@@ -18,8 +18,11 @@ flask run
 #### Windows cmd
 
 ```Linux
-set FLASK_APP=coursharer.py
-set FLASK_ENV=development
+set EMAIL_USER={company email}
+set EMAIL_PASS={company email password}
+set FLASK_APP=run.py
+set SECRET_KEY='daa225d7b4d306991af1f66cc3656352'
+set SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
 flask run
 ```
 
@@ -37,6 +40,7 @@ pip3 install flask_bootstrap
 pip3 install flask_wtf
 pip3 install flask_sqlalchemy
 pip3 install  flask_login
+pip3 install  flask_mail
 ```
 
 Install SQLite
@@ -51,8 +55,6 @@ If you are using VSC “ode, complete the following to avoid Flask-SQLAlchemy Py
 
 Should add in requirements when implemented
 
-Flask-Mail==0.9.1
-
 blinker==1.4
 
 certifi==2016.2.28
@@ -61,16 +63,8 @@ cffi==1.11.5
 
 click==6.7
 
-itsdangerous==0.24
-
-Jinja2==2.10
-
 MarkupSafe==1.0
-
-Pillow==5.3.0
 
 pycparser==2.18
 
 six==1.11.0
-
-Werkzeug==0.14.1
