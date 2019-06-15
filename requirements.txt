@@ -1,0 +1,7 @@
+Flask==1.0.3
+flask_sqlalchemy==2.4.0
+flask_bootstrap==3.3.7.1
+flask_login==0.4.1
+flask_mail==0.9.1
+flask_wtf==0.14.2
+Pillow==6.0.0
