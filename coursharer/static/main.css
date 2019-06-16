@@ -1,10 +1,106 @@
 body {
-    padding-top: 10px;
     color: #333333;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+nav {
+    box-shadow: 2px 2px 15px -5px rgba(0,0,0,0.3);
+}
+
+.dropdown-menu {
+    width: 210px;
+    border: 1px solid #cecece;
+}
+
+.dropdown-item {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis!important;
+}
+
+.profile-icon {
+    width: 40px; 
+    height: 40px;
+    border: 1px solid #cecece;
+}
+
+.navbar-brand img {
+    height: 40px;
+} 
+
+.nav-link-current {
+    border-bottom: 2px solid #5bc0de;
+}
+
+.nav-link {
+    color: #333333;
+}
+
+.nav-link:hover {
+    color: #333333;
+}
+
+.nav-item:hover {
+    background-color: #eee;
+    border-radius: 6px;
+}
+
+.form-control[type="search"] {
+    background-color: #eee;
+    border: none;
+    border-radius: 0;
+}
+
+.form-control[type="search"]:focus {
+    box-shadow: none;
+}
+
+.btn[type='submit'] {
+    color: 	#5bc0de;
+    background-color: #eee;
+    border-radius: 0;
+}
+
+.btn[type='submit']:hover {
+    color: #ffffff;
+    background-color: #5bc0de;
+}
+
+.btn {
+    background-color: 	#5bc0de;
+    color: #ffffff;
+}
+
+.btn.btn-outline {
+    border: 1px solid	#5bc0de;
+    color: #5bc0de;
+    background-color: #ffffff;
+}
+
+footer {
+    border-bottom: 8px solid #5bc0de;
 }
 
 .sub-header {
     padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #cecece;
   }
-  
+
+a {
+    color: #5bc0de;
+}
+
+a:hover {
+    color: #5bc0de;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #e4db5d;
+    text-decoration: underline;
+}
+
+footer {
+    background-color: #eee;
+    font-size: 13px;
+}

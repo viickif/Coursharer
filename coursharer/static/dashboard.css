@@ -19,16 +19,21 @@
 }
 
 .card-title {
+    font-size: 21px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis!important;
     color: #333333;
 }
 
 .card-text {
+    font-size: 14px;
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis!important;
     color: #969696;
 }
 
-.card-link:hover {
+.card a:hover {
     text-decoration: none!important;
 }

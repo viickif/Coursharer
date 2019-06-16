@@ -37,25 +37,25 @@ Dashboard
       </div>
     </nav> -->
 {% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+<nav class="navbar navbar-expand-lg navbar-fixed-top">
   <div class="container">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand mr-4" href="#"><img src="{{url_for('static', filename='assets/' + 'logo-full.png')}}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button> 
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
       </form>
       <ul class="navbar-nav ml-auto">
-        <img class="card-img-top" src="{{ image_file }}" style="width: 40px; height:40px">
+        <img class="rounded-circle mr-2 profile-icon" src="{{ image_file }}">
         <li class="nav-item">
           <a class="nav-link" href="#">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
+          <a class="nav-link nav-link-current" href="#">Dashboard<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,12 +83,12 @@ Dashboard
     {% for course in courses.items %}
     <div class="col-md-4 col-lg-3 col-6 mb-5 d-flex justify-content-center">
       <div class="card col-sm-11">
-        <a class="card-link" ref="#">
-        <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWb557npphO19_ovNZ-yMe9F-D5QWNkhuPDiqDBdEKRR--kvpX" alt="Course image">
-        <div class="card-body">
-          <h4 class="card-title">{{ course.title }}</h4>
-          <p class="card-text">{{ course.description }}</p>
-        </div>
+        <a href="#">
+          <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWb557npphO19_ovNZ-yMe9F-D5QWNkhuPDiqDBdEKRR--kvpX" alt="Course image">
+          <div class="card-body">
+            <h4 class="card-title">{{ course.title }}</h4>
+            <p class="card-text">{{ course.description }}</p>
+          </div>
         </a>
       </div>
     </div>
@@ -98,9 +98,9 @@ Dashboard
   {% for page_num in courses.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
     {% if page_num %}
       {% if courses.page == page_num %}
-      <a class="btn btn-info mb-4" href="{{ url_for('users.dashboard', page=page_num) }}">{{ page_num }}</a>
+      <a class="btn mb-4" href="{{ url_for('users.dashboard', page=page_num) }}">{{ page_num }}</a>
       {% else %}
-       <a class="btn btn-outline-info mb-4" href="{{ url_for('users.dashboard', page=page_num) }}">{{ page_num }}</a>
+       <a class="btn btn-outline mb-4" href="{{ url_for('users.dashboard', page=page_num) }}">{{ page_num }}</a>
       {% endif %}
     {% else %}
       ...
