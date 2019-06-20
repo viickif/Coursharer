@@ -1,4 +1,4 @@
-{% extends "bootstrap/base.html" %}
+{% extends "bootstrap_base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
@@ -7,76 +7,182 @@ Dashboard
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+{% endblock %}
+
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand mr-4" href="#"><img src="{{ url_for('static', filename='assets/' + 'logo-full.png') }}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> 
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0 search" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+      <ul class="navbar-nav ml-auto">
+        <a href="{{ url_for('users.account_details') }}"><img class="rounded-circle mr-2 profile-icon" src="{{ image_file }}"></a>
+        <li class="nav-item">
+          <a class="nav-link nav-link-current" href="{{ url_for('users.account_details') }}">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Your Courses
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 {% endblock %}
 
 {% block content %}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Coursharer</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('users.dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('users.logout') }}">Log Out</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
+<!-- <div class="container">
+    <div class="row form-page d-flex justify-content-center pt-5">
+      <form class="col-lg-4 col-md-5 col-8" method="POST" action="/login">
+        <h2 class="sub-header">Account Details</h2>
+        {{ form.hidden_tag() }}
+        <img class="mb-4 border" src="{{ image_file }}" width="200" height="200" class="img-responsive" alt="User profile picture">
+        {{ wtf.form_field(form.picture) }}
+        {{ wtf.form_field(form.username) }}
+        {{ wtf.form_field(form.email) }}
+        <div class="form-group">
+            {{ form.submit(class="btn fill") }}
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Change your account details, {{ name }}</h1>
+      </form>
+    </div>
+</div> -->
 
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="{{ image_file }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-sm-2 sidebar">
+      <ul class="navbar-nav pt-5">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Lectures</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Assignments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Syllabus</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+      </ul>
+    </div>
 
-          <h2 class="sub-header">Section title</h2>
-            <form class="form-signin" method="POST" action="" enctype="multipart/form-data">
-                <h2 class="form-signin-heading">Account Info</h2>
-                {{ form.hidden_tag() }}
-                {{ wtf.form_field(form.username) }}
-                {{ wtf.form_field(form.email) }}
-                {{ wtf.form_field(form.picture) }}
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-            </form>
-        </div>
+    <div class="col-sm-10 pt-5"></a>
+      <div class="container">
+        <h2 class="sub-header">PHYS 158 : Electricity and Magnetism</h2>
+          <h3>Introduction</h3>
+          <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque saepe unde voluptas dolorem voluptatum, culpa reprehenderit illum pariatur at quis non molestias laudantium dolorum expedita reiciendis, repudiandae numquam odit minus.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque saepe unde voluptas dolorem voluptatum, culpa reprehenderit illum pariatur at quis non molestias laudantium dolorum expedita reiciendis, repudiandae numquam odit minus.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque saepe unde voluptas dolorem voluptatum, culpa reprehenderit illum pariatur at quis non molestias laudantium dolorum expedita reiciendis, repudiandae numquam odit minus.
+          </p>
+
+          <br>
+
+          <h3>Learning Goals</h3>
+          <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque saepe unde voluptas dolorem voluptatum, culpa reprehenderit illum pariatur at quis non molestias laudantium dolorum expedita reiciendis, repudiandae numquam odit minus.
+              <ul>
+                <li>fjkhdkfj</li>
+                <li>fjkh dkfjkjhkjh</li>
+                <li>fjk hdk fjkjh hjkh</li>
+                <li>fj khdkfj</li>
+              </ul>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque saepe unde voluptas dolorem voluptatum, culpa reprehenderit illum pariatur at quis non molestias laudantium dolorum expedita reiciendis, repudiandae numquam odit minus.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Neque saepe unde voluptas dolorem voluptatum, culpa reprehenderit illum pariatur at quis non molestias laudantium dolorum expedita reiciendis, repudiandae numquam odit minus.
+          </p>
       </div>
     </div>
+  </div>
+</div> -->
+
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-9 pt-5" style="background-image: url(https://eduvisuals.com/wp-content/uploads/2019/04/Screeen-Graphic-1-Visual-Production-b.jpg); 
+      height: 80vh; background-repeat:no-repeat; background-size: cover">
+      </div>
+
+      <div class="col-sm-3 sidebar">
+          <h4 class="pt-4 pb-2 pl-3">Course Contents</h4>
+          <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link nav-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Collapsible Group Item #1
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed nav-link" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Collapsible Group Item #2
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed nav-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Collapsible Group Item #3
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                  <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed nav-link" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Collapsible Group Item #3
+                      </button>
+                    </h5>
+                  </div>
+                  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                    <div class="card-body">
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+    </div>
+  </div>
 {% endblock %}
