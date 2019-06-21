@@ -13,42 +13,35 @@ Dashboard
 
 {% block navbar %}
 <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top">
-  <div class="container">
-    <a class="navbar-brand mr-4" href="#"><img src="{{ url_for('static', filename='assets/' + 'logo-full.png') }}"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button> 
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn my-2 my-sm-0 search" type="submit"><i class="fas fa-search"></i></button>
-      </form>
-      <ul class="navbar-nav ml-auto">
-        <a href="{{ url_for('users.account_details') }}"><img class="rounded-circle mr-2 profile-icon" src="{{ image_file }}"></a>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('users.account_details') }}">Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link nav-link-current" href="#">Dashboard<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Your Courses
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for course in courses.items %}
-            <a class="dropdown-item" href="#">{{ course.title }}</a>
-            {% endfor %}
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
-        </li>
-      </ul>
+    <div class="container">
+      <a class="navbar-brand mr-4" href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='assets/' + 'logo-full.png') }}"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> 
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn my-2 my-sm-0 search" type="submit"><i class="fas fa-search"></i></button>
+        </form>
+        <ul class="navbar-nav ml-auto">
+          <a href="{{ url_for('users.account_details') }}"><img class="rounded-circle mr-2 profile-icon" src="{{ image_file }}"></a>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.account_details') }}">Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  nav-link-current" href="{{ url_for('users.dashboard') }}">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.user_courses', username=name) }}">Your Courses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    </div>
-</nav>
+  </nav>
 {% endblock %}
 
 {% block content %}
@@ -58,7 +51,7 @@ Dashboard
     {% for course in courses.items %}
     <div class="col-md-4 col-lg-3 col-6 mb-5 d-flex justify-content-center">
       <div class="card col-sm-11">
-        <a href="#">
+        <a href="{{ url_for('courses.course', course_id=course.id) }}">
           <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWb557npphO19_ovNZ-yMe9F-D5QWNkhuPDiqDBdEKRR--kvpX" alt="Course image">
           <div class="card-body">
             <h4 class="card-title">{{ course.title }}</h4>

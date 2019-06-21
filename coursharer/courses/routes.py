@@ -14,6 +14,7 @@ def create_course():
     if form.validate_on_submit():
         post = Course(title=form.title.data, description=form.content.data,
                       author=current_user)
+                    #   , image_file=form.image_file.data)
 
         db.session.add(post)
         db.session.commit()
@@ -26,7 +27,10 @@ def create_course():
 @courses.route("/course/<int:course_id>")
 def course(course_id):
     course = Course.query.get_or_404(course_id)
-    return render_template('course.html', course=course)
+    image_path = 'profile_pictures/' + current_user.image_file
+    image_file = url_for('static', filename=image_path)
+
+    return render_template('course.html', course=course, image_file=image_file)
 
 
 @courses.route("/course/<int:course_id>/update", methods=['GET', 'POST'])
