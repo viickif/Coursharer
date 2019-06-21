@@ -1,0 +1,49 @@
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar {
+  height: 100vh;
+  border-left: 1px solid #cecece;
+  overflow: scroll;
+  padding-left: 0;
+  padding-right: 0;
+}
+.sidebar .nav-item .nav-link  {
+  color: rgba(0,0,0,.5);
+}
+
+.card {
+  border-radius: 0%
+}
+
+.card-header {
+  background-color: #eee;
+}
+
+.card-body {
+  padding: 0;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+.course-content {
+  list-style: none;
+  padding: 8px 10px 8px 38px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  color: #969696;
+  text-decoration: none;
+}
+
+.course-content:hover {
+  color: #333333;
+}
+
+a:hover {
+  text-decoration: none;
+}

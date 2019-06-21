@@ -41,6 +41,7 @@ class Course(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # image_file = db.Column(db.String(CONST.IMAGE_FILE_LENGTH), nullable=False, default='lecture.jpg')
 
     def __repr__(self):
         return f"Course('{self.title}': '{self.description}'"

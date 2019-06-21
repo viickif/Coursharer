@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for,session
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -10,6 +10,8 @@ from coursharer.users.forms import (LoginForm, RegistrationForm,
                                     UpdateAccountForm)
 from coursharer.users.utils import (save_picture, send_reset_email,
                                     update_user_info)
+from datetime import timedelta
+                    
 
 users = Blueprint('users', __name__)
 
@@ -55,7 +57,10 @@ def user_courses(username):
         .order_by(Course.date_posted.desc())\
         .paginate(page=page, per_page=CONST.COURSES_PER_PAGE)
 
-    return render_template('user_courses.html', courses=courses, user=user)
+    image_path = 'profile_pictures/' + current_user.image_file
+    image_file = url_for('static', filename=image_path)
+
+    return render_template('user_courses.html', courses=courses, image_file=image_file, name=username)
 
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -66,7 +71,9 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
 
         if user and check_password_hash(user.password, form.password.data):
-                login_user(user, remember=form.remember.data)
+                # login_user(user, remember=form.remember.data, duration=timedelta(hours=5))
+                login_user(user, remember=False, duration=None, force=False, fresh=True)
+                session.permanent = True
                 return redirect(url_for('users.dashboard'))
         else:
             print('Login unsuccessful...')

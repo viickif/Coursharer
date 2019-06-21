@@ -1,4 +1,4 @@
-{% extends "bootstrap/base.html" %}
+{% extends "bootstrap_base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
@@ -7,76 +7,57 @@ Dashboard
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+{% endblock %}
+
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand mr-4" href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='assets/' + 'logo-full.png') }}"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> 
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0 search" type="submit"><i class="fas fa-search"></i></button>
+      </form>
+      <ul class="navbar-nav ml-auto">
+        <a href="{{ url_for('users.account_details') }}"><img class="rounded-circle mr-2 profile-icon" src="{{ image_file }}"></a>
+        <li class="nav-item">
+          <a class="nav-link nav-link-current" href="{{ url_for('users.account_details') }}">Account</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('users.dashboard') }}">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('users.user_courses', username=name) }}">Your Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 {% endblock %}
 
 {% block content %}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Coursharer</a>
+<div class="container">
+    <div class="row form-page d-flex justify-content-center pt-5">
+      <form class="col-lg-4 col-md-5 col-8" method="POST" action="" enctype="multipart/form-data">
+        <h2 class="sub-header">Account Details</h2>
+        {{ form.hidden_tag() }}
+        <img class="mb-4 border" src="{{ image_file }}" width="200" height="200" class="img-responsive" alt="User profile picture">
+        {{ wtf.form_field(form.picture) }}
+        {{ wtf.form_field(form.username) }}
+        {{ wtf.form_field(form.email) }}
+        <div class="form-group">
+            {{ form.submit(class="btn fill") }}
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="{{ url_for('users.dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('users.logout') }}">Log Out</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Change your account details, {{ name }}</h1>
-
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="{{ image_file }}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
-
-          <h2 class="sub-header">Section title</h2>
-            <form class="form-signin" method="POST" action="" enctype="multipart/form-data">
-                <h2 class="form-signin-heading">Account Info</h2>
-                {{ form.hidden_tag() }}
-                {{ wtf.form_field(form.username) }}
-                {{ wtf.form_field(form.email) }}
-                {{ wtf.form_field(form.picture) }}
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-            </form>
-        </div>
-      </div>
+      </form>
     </div>
+</div>
 {% endblock %}
