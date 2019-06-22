@@ -5,3 +5,4 @@ flask_login==0.4.1
 flask_mail==0.9.1
 flask_wtf==0.14.2
 Pillow==6.0.0
+selenium==3.141.0
