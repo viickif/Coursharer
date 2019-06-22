@@ -21,8 +21,12 @@ def create_course():
         print('Your course has been created!')
 
         return redirect(url_for('users.dashboard'))
+    
+    image_path = 'profile_pictures/' + current_user.image_file
+    image_file = url_for('static', filename=image_path)
+
     return render_template('create_course.html', form=form,
-                            title='Create New Course')
+                            title='Create New Course', name=current_user.username, image_file=image_file)
 
 @courses.route("/course/<int:course_id>")
 def course(course_id):
@@ -30,7 +34,7 @@ def course(course_id):
     image_path = 'profile_pictures/' + current_user.image_file
     image_file = url_for('static', filename=image_path)
 
-    return render_template('course.html', course=course, image_file=image_file)
+    return render_template('course.html', course=course, name=current_user.username, image_file=image_file)
 
 
 @courses.route("/course/<int:course_id>/update", methods=['GET', 'POST'])
@@ -54,7 +58,10 @@ def update_course(course_id):
         form.title.data = course.title
         form.content.data = course.description
 
-    return render_template('create_course.html', title='Update Course', form=form)
+    image_path = 'profile_pictures/' + current_user.image_file
+    image_file = url_for('static', filename=image_path)
+
+    return render_template('create_course.html', title='Update Course', form=form, name=current_user.username, image_file=image_file)
 
 
 @courses.route("/course/<int:course_id>/delete", methods=['POST'])

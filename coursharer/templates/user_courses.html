@@ -46,12 +46,16 @@ Dashboard
 
 {% block content %}
 <div class="container pt-5">
-  <h2 class="sub-header">{{ name }}'s Courses</h2>
+  <h2 class="sub-header d-flex justify-content-between">{{ name }}'s Courses<span><a class="btn fill" href="{{ url_for('courses.create_course') }}">New Course</a></span></h2>
   <div class="row mt-4">
       {% for course in courses.items %}
       <div class="col-md-4 col-lg-3 col-6 mb-5 d-flex justify-content-center">
         <div class="card col-sm-11">
+          {% if curr_username == name %}
+          <a href="{{ url_for('courses.update_course', course_id=course.id) }}">
+          {% else %}
           <a href="{{ url_for('courses.course', course_id=course.id) }}">
+          {% endif %}
             <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWb557npphO19_ovNZ-yMe9F-D5QWNkhuPDiqDBdEKRR--kvpX" alt="Course image">
             <div class="card-body">
               <h4 class="card-title">{{ course.title }}</h4>

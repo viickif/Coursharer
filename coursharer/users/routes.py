@@ -60,7 +60,7 @@ def user_courses(username):
     image_path = 'profile_pictures/' + current_user.image_file
     image_file = url_for('static', filename=image_path)
 
-    return render_template('user_courses.html', courses=courses, image_file=image_file, name=username)
+    return render_template('user_courses.html', courses=courses, image_file=image_file, name=username, curr_username=current_user.username)
 
 
 @users.route('/login', methods=['GET', 'POST'])
