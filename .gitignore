@@ -13,5 +13,6 @@ dist/
 .vscode
 build/
 *.egg-info/
+lib
 
 # site.db
