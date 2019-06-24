@@ -1,21 +1,15 @@
 html {
     scroll-behavior: smooth;
-<<<<<<< HEAD
     height: 100%;
-=======
->>>>>>> 37d6b422cc0898ae368ac24fdb16c2d43c9f538d
 }
 
 body {
     color: #333333;
     font-family: 'Source Sans Pro', sans-serif;
-<<<<<<< HEAD
     min-height:100%; 
     padding:0; 
     margin:0; 
     position:relative;
-=======
->>>>>>> 37d6b422cc0898ae368ac24fdb16c2d43c9f538d
 }
 
 .btn:focus {
@@ -181,7 +175,7 @@ a:active {
 
 /* forms */
 
-.form-page {
+.page {
     height: 95vh;
 }
 
@@ -189,7 +183,7 @@ a:active {
 
 footer {
     border-bottom: 8px solid #5bc0de;
-    bottom: 0;
+    bottom: -51px;
     width: 100%;
     background-color: #eee;
     font-size: 13px;

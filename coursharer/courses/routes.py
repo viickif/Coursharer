@@ -5,39 +5,49 @@ from coursharer import db
 from coursharer.courses.forms import CourseForm
 from coursharer.models import Course
 
-courses = Blueprint('courses', __name__)
+courses = Blueprint("courses", __name__)
 
-@courses.route('/course/new', methods=['GET', 'POST'])
+
+@courses.route("/course/new", methods=["GET", "POST"])
 @login_required
 def create_course():
     form = CourseForm()
     if form.validate_on_submit():
-        post = Course(title=form.title.data, description=form.content.data,
-                      author=current_user)
-                    #   , image_file=form.image_file.data)
+        post = Course(
+            title=form.title.data, description=form.content.data, author=current_user
+        )
+        #   , image_file=form.image_file.data)
 
         db.session.add(post)
         db.session.commit()
-        print('Your course has been created!')
+        print("Your course has been created!")
 
-        return redirect(url_for('users.dashboard'))
-    
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+        return redirect(url_for("users.dashboard"))
 
-    return render_template('create_course.html', form=form,
-                            title='Create New Course', name=current_user.username, image_file=image_file)
+    image_path = "profile_pictures/" + current_user.image_file
+    image_file = url_for("static", filename=image_path)
+
+    return render_template(
+        "create_course.html",
+        form=form,
+        title="Create New Course",
+        name=current_user.username,
+        image_file=image_file,
+    )
+
 
 @courses.route("/course/<int:course_id>")
 def course(course_id):
     course = Course.query.get_or_404(course_id)
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    image_path = "profile_pictures/" + current_user.image_file
+    image_file = url_for("static", filename=image_path)
 
-    return render_template('course.html', course=course, name=current_user.username, image_file=image_file)
+    return render_template(
+        "course.html", course=course, name=current_user.username, image_file=image_file
+    )
 
 
-@courses.route("/course/<int:course_id>/update", methods=['GET', 'POST'])
+@courses.route("/course/<int:course_id>/update", methods=["GET", "POST"])
 @login_required
 def update_course(course_id):
     course = Course.query.get_or_404(course_id)
@@ -51,20 +61,26 @@ def update_course(course_id):
         course.title = form.title.data
         course.description = form.content.data
         db.session.commit()
-        print('Your course has been updated')
+        print("Your course has been updated")
 
-        return redirect(url_for('courses.courses.course', course_id=course_id))
-    elif request.method == 'GET':
+        return redirect(url_for("courses.courses.course", course_id=course_id))
+    elif request.method == "GET":
         form.title.data = course.title
         form.content.data = course.description
 
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    image_path = "profile_pictures/" + current_user.image_file
+    image_file = url_for("static", filename=image_path)
 
-    return render_template('create_course.html', title='Update Course', form=form, name=current_user.username, image_file=image_file)
+    return render_template(
+        "create_course.html",
+        title="Update Course",
+        form=form,
+        name=current_user.username,
+        image_file=image_file,
+    )
 
 
-@courses.route("/course/<int:course_id>/delete", methods=['POST'])
+@courses.route("/course/<int:course_id>/delete", methods=["POST"])
 @login_required
 def delete_course(course_id):
     course = Course.query.get_or_404(course_id)
@@ -74,6 +90,6 @@ def delete_course(course_id):
 
     db.session.delete(course)
     db.session.commit()
-    print('Your course has been deleted!')
+    print("Your course has been deleted!")
 
-    return redirect(url_for('users.dashboard'))
+    return redirect(url_for("users.dashboard"))
