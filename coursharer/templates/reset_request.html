@@ -34,8 +34,8 @@ Reset Password
 
 {% block content %}
   <div class="container">
-    <div class="row form-page d-flex justify-content-center pt-5">
-      <form class="fcol-lg-4 col-md-5 col-8" method="POST" action="/login">
+    <div class="row page d-flex justify-content-center pt-5">
+      <form class="col-lg-4 col-md-5 col-8" method="POST" action="/login">
         <h2 class="sub-header">Please Enter Your Email</h2>
         {{ form.hidden_tag() }}
         {{ wtf.form_field(form.email) }}

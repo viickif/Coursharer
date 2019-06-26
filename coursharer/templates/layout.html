@@ -1,0 +1,25 @@
+{% extends "bootstrap_base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Error
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container page d-flex justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='assets/' + 'logo-full.png') }}" height="50%">
+        </div>
+        <div class="col-md-6">
+            {% block error %}
+            {%- endblock error %}
+        </div>
+    </div>
+</div>
+{% endblock %}
