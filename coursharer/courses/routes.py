@@ -14,7 +14,7 @@ def create_course():
     if form.validate_on_submit():
         post = Course(title=form.title.data, description=form.content.data,
                       author=current_user)
-                    #   , image_file=form.image_file.data)
+                    #   , profile_photo_file=form.profile_photo.data)
 
         db.session.add(post)
         db.session.commit()
@@ -22,19 +22,19 @@ def create_course():
 
         return redirect(url_for('users.dashboard'))
     
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    profile_photo_path = 'profile_photos/' + current_user.profile_photo
+    profile_photo = url_for('static', filename=profile_photo_path)
 
     return render_template('create_course.html', form=form,
-                            title='Create New Course', name=current_user.username, image_file=image_file)
+                            title='Create New Course', name=current_user.username, profile_photo_file=profile_photo_file)
 
 @courses.route("/course/<int:course_id>")
 def course(course_id):
     course = Course.query.get_or_404(course_id)
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    profile_photo_path = 'profile_photos/' + current_user.profile_photo
+    profile_photo_file = url_for('static', filename=profile_photo_path)
 
-    return render_template('course.html', course=course, name=current_user.username, image_file=image_file)
+    return render_template('course.html', course=course, name=current_user.username, profile_photo_file=profile_photo_file)
 
 
 @courses.route("/course/<int:course_id>/update", methods=['GET', 'POST'])
@@ -58,10 +58,10 @@ def update_course(course_id):
         form.title.data = course.title
         form.content.data = course.description
 
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    profile_photo_path = 'profile_photos/' + current_user.profile_photo
+    profile_photo_file = url_for('static', filename=profile_photo_path)
 
-    return render_template('create_course.html', title='Update Course', form=form, name=current_user.username, image_file=image_file)
+    return render_template('create_course.html', title='Update Course', form=form, name=current_user.username, profile_photo_file=profile_photo_file)
 
 
 @courses.route("/course/<int:course_id>/delete", methods=['POST'])

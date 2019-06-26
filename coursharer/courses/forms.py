@@ -7,5 +7,5 @@ from wtforms.validators import InputRequired
 class CourseForm(FlaskForm):
     title = StringField('Course Title', validators=[InputRequired()])
     content = TextAreaField('Description', validators=[InputRequired()])
-    # image_file = FileField('Update Course Picture', validators=[FileAllowed(['jpg', 'png'])])
+    # profile_photo_file = FileField('Update Course Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Create')

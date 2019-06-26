@@ -12,7 +12,7 @@ def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(current_app.root_path, 'static/profile_pictures', picture_fn)
+    picture_path = os.path.join(current_app.root_path, 'static/profile_photos', picture_fn)
 
     output_size = (125, 125)
     im = Image.open(form_picture)
@@ -36,7 +36,7 @@ If you did not make this request then simply ignore this email and no changes wi
 def update_user_info(form):
     if form.picture.data:
         picture_file = save_picture(form.picture.data)
-        current_user.image_file = picture_file
+        current_user.profile_photo = picture_file
 
     current_user.username = form.username.data
     current_user.email = form.email.data

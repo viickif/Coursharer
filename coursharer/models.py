@@ -14,7 +14,7 @@ def load_user(user_id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(CONST.USERNAME_LENGTH), unique=True, nullable=False)
-    image_file = db.Column(db.String(CONST.IMAGE_FILE_LENGTH), nullable=False, default='defaultMalePhoto.jpg')
+    profile_photo = db.Column(db.String(CONST.IMAGE_FILE_LENGTH), nullable=False, default='defaultMalePhoto.jpg')
     email = db.Column(db.String(CONST.EMAIL_LENGTH), unique=True, nullable=False)
     password = db.Column(db.String(CONST.PASSWORD_LENGTH), nullable=False)
     courses = db.relationship('Course', backref='author', lazy=True)
@@ -41,7 +41,7 @@ class Course(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # image_file = db.Column(db.String(CONST.IMAGE_FILE_LENGTH), nullable=False, default='lecture.jpg')
+    course_photo = db.Column(db.String(CONST.IMAGE_FILE_LENGTH), nullable=False, default='lecture.jpg')
 
     def __repr__(self):
         return f"Course('{self.title}': '{self.description}'"

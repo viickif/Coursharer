@@ -1,15 +1,20 @@
 from flask import Blueprint, render_template, url_for
 from flask_login import current_user
 
-main = Blueprint('main', __name__)
+main = Blueprint("main", __name__)
 
-@main.route('/')
+
+@main.route("/")
 def index():
 
-    image_file = 'a'
+    profile_photo_file = ""
 
     if current_user.is_authenticated:
-        image_path = 'profile_pictures/' + current_user.image_file
-        image_file = url_for('static', filename=image_path)
+        profile_photo_path = "profile_photos/" + current_user.profile_photo
+        profile_photo_file = url_for("static", filename=profile_photo_path)
 
-    return render_template('index.html', logged_in=current_user.is_authenticated, image_file=image_file)
+    return render_template(
+        "index.html",
+        logged_in=current_user.is_authenticated,
+        profile_photo_file=profile_photo_file,
+    )

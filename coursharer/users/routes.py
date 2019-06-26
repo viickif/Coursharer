@@ -22,11 +22,11 @@ def dashboard():
     courses = Course.query.order_by(Course.date_posted.desc())\
         .paginate(page=page, per_page=CONST.COURSES_PER_PAGE)
 
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    profile_photo_path = 'profile_photos/' + current_user.profile_photo
+    profile_photo_file = url_for('static', filename=profile_photo_path)
 
     return render_template('dashboard.html', name=current_user.username,
-                            image_file=image_file, courses=courses)
+                            profile_photo_file=profile_photo_file, courses=courses)
 
 @users.route('/account_details', methods=['GET', 'POST'])
 @login_required
@@ -42,11 +42,11 @@ def account_details():
         form.username.data = current_user.username
         form.email.data = current_user.email
 
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    profile_photo_path = 'profile_photos/' + current_user.profile_photo
+    profile_photo_file = url_for('static', filename=profile_photo_path)
 
     return render_template('account_details.html', name=current_user.username,
-                            image_file=image_file, form=form)
+                            profile_photo_file=profile_photo_file, form=form)
 
 
 @users.route("/user/<string:username>")
@@ -57,10 +57,10 @@ def user_courses(username):
         .order_by(Course.date_posted.desc())\
         .paginate(page=page, per_page=CONST.COURSES_PER_PAGE)
 
-    image_path = 'profile_pictures/' + current_user.image_file
-    image_file = url_for('static', filename=image_path)
+    profile_photo_path = 'profile_photos/' + current_user.profile_photo
+    profile_photo_file = url_for('static', filename=profile_photo_path)
 
-    return render_template('user_courses.html', courses=courses, image_file=image_file, name=username, curr_username=current_user.username)
+    return render_template('user_courses.html', courses=courses, profile_photo_file=profile_photo_file, name=username, curr_username=current_user.username)
 
 
 @users.route('/login', methods=['GET', 'POST'])

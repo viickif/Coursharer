@@ -25,7 +25,7 @@ Dashboard
         <button class="btn my-2 my-sm-0 search" type="submit"><i class="fas fa-search"></i></button>
       </form>
       <ul class="navbar-nav ml-auto">
-        <a href="{{ url_for('users.account_details') }}"><img class="rounded-circle mr-2 profile-icon" src="{{ image_file }}"></a>
+        <a href="{{ url_for('users.account_details') }}"><img class="rounded-circle mr-2 profile-icon" src="{{ profile_photo_file }}"></a>
         <li class="nav-item">
           <a class="nav-link nav-link-current" href="{{ url_for('users.account_details') }}">Account</a>
         </li>
@@ -50,7 +50,7 @@ Dashboard
       <form class="col-lg-4 col-md-5 col-8" method="POST" action="" enctype="multipart/form-data">
         <h2 class="sub-header">Account Details</h2>
         {{ form.hidden_tag() }}
-        <img class="mb-4 border" src="{{ image_file }}" width="200" height="200" class="img-responsive" alt="User profile picture">
+        <img class="mb-4 border" src="{{ profile_photo_file }}" width="200" height="200" class="img-responsive" alt="User profile picture">
         {{ wtf.form_field(form.picture) }}
         {{ wtf.form_field(form.username) }}
         {{ wtf.form_field(form.email) }}
