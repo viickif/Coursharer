@@ -10,6 +10,35 @@ Error
 <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
 {% endblock %}
 
+{% block navbar %}
+{% if not logged_in %}
+<ul class="navbar-nav ml-auto">
+  <li class="nav-item">
+    <a class="nav-link outline nav-btn" href="{{ url_for('users.login') }}">Log In</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link fill nav-btn" href="{{ url_for('users.signup') }}">Sign Up</a>
+  </li>
+</ul>  
+{% else %}
+<ul class="navbar-nav ml-auto">
+  <a href="{{ url_for('users.account_details') }}"><img class="rounded-circle mr-2 profile-icon" src="{{ profile_photo_file }}"></a>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('users.account_details') }}">Account</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('users.dashboard') }}">Dashboard</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('users.user_courses', username=name) }}">Your Courses</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+  </li>
+</ul>
+{% endif %}
+{% endblock %}
+
 {% block content %}
 <div class="container page d-flex justify-content-center align-items-center">
     <div class="row">

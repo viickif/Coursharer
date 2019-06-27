@@ -18,6 +18,22 @@ from datetime import timedelta
 
 users = Blueprint("users", __name__)
 
+@users.route("/search")
+def search():
+    page = request.args.get("page", CONST.DEFAULT_PAGE, type=int)
+    courses = Course.query.filter('course1' == Course.title).order_by(Course.date_posted.desc()).paginate(
+        page=page, per_page=CONST.COURSES_PER_PAGE
+    )
+
+    profile_photo_path = "profile_photos/" + current_user.profile_photo
+    profile_photo_file = url_for("static", filename=profile_photo_path)
+
+    return render_template(
+        "dashboard.html",
+        name=current_user.username,
+        profile_photo_file=profile_photo_file,
+        courses=courses,
+    )
 
 @users.route("/dashboard")
 @login_required
@@ -80,6 +96,7 @@ def user_courses(username):
         "user_courses.html",
         courses=courses,
         profile_photo_file=profile_photo_file,
+        logged_in=current_user.is_authenticated,
         name=username,
         curr_username=current_user.username,
     )
