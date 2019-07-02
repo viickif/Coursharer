@@ -46,29 +46,3 @@ pip3 install flask_sqlalchemy
 pip3 install  flask_login
 pip3 install  flask_mail
 ```
-
-Install SQLite
-
-If you are using VSC “ode, complete the following to avoid Flask-SQLAlchemy Pylint errors:
-
-1. Run `pip install pylint-flask` in terminal
-2. Press `Ctrl + Shift + P`. Then enter “Preferences: Open Settings (JSON)”
-3. Add "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
-
-
-
-Should add in requirements when implemented
-
-blinker==1.4
-
-certifi==2016.2.28
-
-cffi==1.11.5
-
-click==6.7
-
-MarkupSafe==1.0
-
-pycparser==2.18
-
-six==1.11.0
