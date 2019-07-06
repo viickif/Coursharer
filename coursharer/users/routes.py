@@ -15,25 +15,8 @@ from coursharer.users.forms import (
 from coursharer.users.utils import save_picture, send_reset_email, update_user_info
 from datetime import timedelta
 
-
+from sqlalchemy import func
 users = Blueprint("users", __name__)
-
-@users.route("/search")
-def search():
-    page = request.args.get("page", CONST.DEFAULT_PAGE, type=int)
-    courses = Course.query.filter('course1' == Course.title).order_by(Course.date_posted.desc()).paginate(
-        page=page, per_page=CONST.COURSES_PER_PAGE
-    )
-
-    profile_photo_path = "profile_photos/" + current_user.profile_photo
-    profile_photo_file = url_for("static", filename=profile_photo_path)
-
-    return render_template(
-        "dashboard.html",
-        name=current_user.username,
-        profile_photo_file=profile_photo_file,
-        courses=courses,
-    )
 
 @users.route("/dashboard")
 @login_required
@@ -51,6 +34,9 @@ def dashboard():
         name=current_user.username,
         profile_photo_file=profile_photo_file,
         courses=courses,
+        title = "Dashboard",
+        header="Your Courses",
+        empty_courses_msg="You are not enrolled in any courses.",
     )
 
 
@@ -98,7 +84,10 @@ def user_courses(username):
         profile_photo_file=profile_photo_file,
         logged_in=current_user.is_authenticated,
         name=username,
-        curr_username=current_user.username,
+        curr_username = current_user.username,
+        title = current_user.username,
+        header= f"{current_user.username}'s Courses",
+        empty_courses_msg="User has no courses.",
     )
 
 
