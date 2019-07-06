@@ -15,9 +15,8 @@ from coursharer.users.forms import (
 from coursharer.users.utils import save_picture, send_reset_email, update_user_info
 from datetime import timedelta
 
-
+from sqlalchemy import func
 users = Blueprint("users", __name__)
-
 
 @users.route("/dashboard")
 @login_required
@@ -35,6 +34,9 @@ def dashboard():
         name=current_user.username,
         profile_photo_file=profile_photo_file,
         courses=courses,
+        title = "Dashboard",
+        header="Your Courses",
+        empty_courses_msg="You are not enrolled in any courses.",
     )
 
 
@@ -80,8 +82,12 @@ def user_courses(username):
         "user_courses.html",
         courses=courses,
         profile_photo_file=profile_photo_file,
+        logged_in=current_user.is_authenticated,
         name=username,
-        curr_username=current_user.username,
+        curr_username = current_user.username,
+        title = current_user.username,
+        header= f"{current_user.username}'s Courses",
+        empty_courses_msg="User has no courses.",
     )
 
 
