@@ -15,16 +15,22 @@ def search():
         page=page, per_page=CONST.COURSES_PER_PAGE
     )
 
-    profile_photo_path = "profile_photos/" + current_user.profile_photo
-    profile_photo_file = url_for("static", filename=profile_photo_path)
+    profile_photo_file = ""
+    name = ""
+
+    if current_user.is_authenticated:
+        profile_photo_path = "profile_photos/" + current_user.profile_photo
+        profile_photo_file = url_for("static", filename=profile_photo_path)
+        name = current_user.username
 
     return render_template(
         "dashboard.html",
-        name=current_user.username,
+        logged_in=current_user.is_authenticated,
+        name=name,
         profile_photo_file=profile_photo_file,
         courses=courses,
-        title = "Search Results",
-        header= f"Search Results for: {query}",
+        title="Search Results",
+        header=f"Search Results for: {query}",
         empty_courses_msg="No results.",
     )
 

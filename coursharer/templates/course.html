@@ -9,6 +9,13 @@ Course
 {{super()}}
 <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='course_content.css')}}">
+
+<!-- rateyo css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<!-- rateyo js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<!-- custom rateyo js -->
+<script type="text/javascript" src="{{url_for('static', filename='starRating.js')}}"></script>
 {% endblock %}
 
 
@@ -113,10 +120,37 @@ Course
         </div>
     </div>
 </div>
-
 <!-- course overview for later? -->
 
 <div class="container">
+
+<!-- Button trigger modal -->
+<button type="button" class="btn" data-toggle="modal" data-target="#ratingModal">
+    <div id="rateYoRead"></div> 
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Rate x Course</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container d-flex justify-content-center">
+              <div id="rateYoWrite"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn outline" data-dismiss="modal">Close</button>
+          <button type="button" id="saveRating" class="btn fill" data-dismiss="modal">Save rating</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-sm-2 sidebar" style="border: none">
       <ul class="navbar-nav pt-5">

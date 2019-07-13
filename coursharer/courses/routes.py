@@ -1,3 +1,4 @@
+import sys
 from flask import Blueprint, abort, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
@@ -96,3 +97,13 @@ def delete_course(course_id):
     print("Your course has been deleted!")
 
     return redirect(url_for("users.dashboard"))
+
+@courses.route("/rate/<int:course_id>", methods=["POST"])
+def rate(course_id):
+    new_rating = request.form['rating']
+    
+    print("+++++++ " + new_rating, file=sys.stderr)
+    #TODO: add rating and num_ratings to db and commit
+    
+    return "success"
+
