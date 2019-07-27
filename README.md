@@ -30,9 +30,6 @@ set SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
 flask run
 ```
 
-EMAIL_USER
-
-EMAIL_PASS
 
 ### Installation
 
@@ -46,5 +43,5 @@ pip3 install -r requirements.txt
 
 ![home](/readme_img/home.png "home")
 ![account](/readme_img/account.png "account")
+![dashboard](/readme_img/dashboard.png "dashboard")
 ![course](/readme_img/course.png "course")
-![dashboard](/readme_img/dashboard.png.jpg "dashboard")
