@@ -1,4 +1,5 @@
 import sys
+import json
 from flask import Blueprint, abort, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
@@ -42,6 +43,8 @@ def course(course_id):
     course = Course.query.get_or_404(course_id)
     profile_photo_path = "profile_photos/" + current_user.profile_photo
     profile_photo_file = url_for("static", filename=profile_photo_path)
+
+    # rating = Course.query.get_or_404(course_id).title
 
     return render_template(
         "course.html",
@@ -98,9 +101,24 @@ def delete_course(course_id):
 
     return redirect(url_for("users.dashboard"))
 
-@courses.route("/rate/<int:course_id>", methods=["POST"])
-def rate(course_id):
+@courses.route("/rating/get/<int:course_id>", methods=["GET"])
+def get_rating(course_id):
+    course = Course.query.get_or_404(course_id)
+    rating = 0 if not course.num_ratings else course.rating / course.num_ratings
+
+    return json.dumps({'rating': rating})
+
+@courses.route("/rating/update/<int:course_id>", methods=["POST"])
+def post_rating(course_id):
+
+    course = Course.query.get_or_404(course_id)
+    
     new_rating = request.form['rating']
+
+    course.rating += float(new_rating)
+    course.num_ratings += 1
+
+    db.session.commit()
     
     print("+++++++ " + new_rating, file=sys.stderr)
     #TODO: add rating and num_ratings to db and commit

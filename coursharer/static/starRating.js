@@ -1,19 +1,30 @@
 $(document).ready(function(){
  
     $(function () {
-        $("#rateYoRead").rateYo({
-            rating: 3.2,
-            readOnly: true
-        });
+        $.get( "/rating/get/1", function( data ) {
+            currRating = $.parseJSON(data).rating;
 
-        $("#rateYoWrite").rateYo({
-            rating: 0
-        });
+            console.log($.parseJSON(data).rating)
+            $("#rateYoRead").rateYo({
+                rating: currRating,
+                spacing: "10px",
+                ratedFill: "#fdd962",
+            });
 
-        $("#saveRating").on('click', function() {
-            console.log($("#rateYoWrite").rateYo("rating"));
-            $.post( "/rate/1", {
-                rating: $("#rateYoWrite").rateYo("rating")
+            $("#rateYoRead").on('click', function() {
+                newRating = $(this).rateYo("rating");
+                $("#rateYoWrite").rateYo({
+                    rating: newRating,
+                    spacing: "10px",
+                    ratedFill: "#fdd962",
+                });
+            });
+
+            $("#saveRating").on('click', function() {
+                console.log($("#rateYoWrite").rateYo("rating"));
+                $.post( "/rating/update/1", {
+                    rating: $("#rateYoWrite").rateYo("rating")
+                });
             });
         });
     });

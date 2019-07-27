@@ -42,7 +42,8 @@ class Course(db.Model):
     description = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     course_photo = db.Column(db.String(CONST.IMAGE_FILE_LENGTH), nullable=False, default='lecture.jpg')
-
+    num_ratings = db.Column(db.Integer, nullable=False, default=0)
+    rating = db.Column(db.Float(precision='1.2'), nullable=False, default=0)
     def __repr__(self):
         return f"Course('{self.title}': '{self.description}'"
         
