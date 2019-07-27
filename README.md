@@ -39,10 +39,12 @@ EMAIL_PASS
 Install `Python3` and `Pip3`
 
 ```Linux
-pip3 install flask
-pip3 install flask_bootstrap
-pip3 install flask_wtf
-pip3 install flask_sqlalchemy
-pip3 install  flask_login
-pip3 install  flask_mail
+pip3 install -r requirements.txt
 ```
+
+### Project Demo
+
+![home](/readme_img/home.png "home")
+![account](/readme_img/account.png "account")
+![course](/readme_img/course.png "course")
+![dashboard](/readme_img/dashboard.png.jpg "dashboard")
